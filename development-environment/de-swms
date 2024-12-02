@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+
+# Configuration
+SESSION="swms"
+DIR="/home/nixos/Workspace/swms/"
+
+# Commmands
+CMD__WIN0__PANE0="cd internal/ui && npm run dev"
+CMD__WIN0__PANE1="cd dist && ./swms"
+CMD__WIN0__PANE2="cd internal/ui && npm run watch:workers"
+CMD__WIN1__PANE0="nvim ."
+
+# Commands
+tmux new-session -d -s "$SESSION" -c "$DIR"
+
+WINDOW=0
+tmux rename-window -t "$SESSION:$WINDOW" "Server"
+tmux send-keys -t "$SESSION:$WINDOW" "$CMD__WIN0__PANE0" C-m
+tmux split-window -h -c "$DIR"
+tmux send-keys -t "$SESSION:$WINDOW" "$CMD__WIN0__PANE1" C-m "start" C-m
+tmux split-window -v -c "$DIR"
+tmux send-keys -t "$SESSION:$WINDOW" "$CMD__WIN0__PANE2" C-m
+
+WINDOW=1
+tmux new-window -t "$SESSION:$WINDOW" -n "Editor" -c "$DIR"
+tmux send-keys -t "$SESSION:$WINDOW" "$CMD__WIN1__PANE0" C-m
+
+tmux attach-session -t "$SESSION"
