@@ -1,9 +1,8 @@
-
 #!/usr/bin/env zsh
 
 # Configuration
-SESSION="swms"
-DIR="/home/nixos/Desktop/Workspace/rust-playeground"
+SESSION="RustyUi"
+DIR="/home/nixos/Desktop/Workspace/rust-playground/rusty-ui/"
 
 # Commmands
 CMD__WIN0__PANE0="cargo watch -c -q -w ./src -x run"
